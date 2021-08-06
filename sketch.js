@@ -2,6 +2,8 @@ let Monoton;
 let Notable;
 let months;
 let days;
+let colors = 0;
+let forward = true;
 
 function preload() {
   Monoton = loadFont('Monoton/Monoton-Regular.ttf');
@@ -45,17 +47,33 @@ function draw() {
   let yr = year();
   let date_v = new Date();
   let wday = date_v.getDay();
+
   let wid = window.innerWidth;
   let hig = window.innerHeight;
 
 
   strokeWeight(6);
   noFill();
-  stroke(255,112,197);
+
+  if(forward){
+    colors = (colors + 1)%256;
+    if(colors == 255)
+      forward = false;
+  }
+  else{
+    colors = (colors - 1)%256;
+    if(colors == 50)
+      forward = true;
+  }
+
+  stroke(colors, colors/2, colors/1.2);
+  // stroke(255,112,197);
   arc(wid/2, hig/2, 300, 300, 3*PI/2, 3*PI/2 + s*PI/30, OPEN);
-  stroke(57,255,20);
+  stroke(colors/5, colors, colors/13);
+  // stroke(57,255,20);
   arc(wid/2, hig/2, 260, 260, 3*PI/2, 3*PI/2 + m*PI/30, OPEN);
-  stroke(156,38,255);
+  stroke(colors/1.6, colors/6.7, colors);
+  // stroke(156,38,255);
   arc(wid/2, hig/2, 220, 220, 3*PI/2, 3*PI/2 + h*PI/6, OPEN);
 
   fill(255, 123, 25).strokeWeight(0).textSize(50);
